@@ -211,4 +211,11 @@ public class RPCClient : IRPCClient
         var castedResponse = response as LoadWalletResponse;
         return castedResponse;
     }
+
+    public async Task<SetTxFeeResponse> SetTxFee(SetTxFeeRequest request)
+    {
+        var response = await GetResponse<SetTxFeeResponse>(request);
+        var castedResponse = response as SetTxFeeResponse;
+        return castedResponse;
+    }
 }

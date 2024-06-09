@@ -26,7 +26,7 @@ public class SendToAddressRequest : RPCWalletRequest
         string address, decimal amount, 
         string comment, string comment_to, 
         bool subtractfeefromamount, bool replaceable,
-        int conf_target, string estimate_mode, bool avoid_reuse)
+        int conf_target, string estimate_mode, bool avoid_reuse, decimal? fee_rate)
         : base(method_name, walletName)
     {
         Address = address;
@@ -38,6 +38,7 @@ public class SendToAddressRequest : RPCWalletRequest
         Conf_target = conf_target;
         Estimate_mode = estimate_mode;
         Avoid_reuse = avoid_reuse;
+        Fee_rate = fee_rate;
     }
 
     public string Address { get; set; }
@@ -49,17 +50,25 @@ public class SendToAddressRequest : RPCWalletRequest
     public int Conf_target { get; set; }
     public string Estimate_mode { get; set; }
     public bool Avoid_reuse { get; private set; }
+    public decimal? Fee_rate { get; private set; }
 
     public override List<object> Params
     {
         get
         {
-            var retval = new object[]
-            {
+            
+            object[] retval = Fee_rate.HasValue ?
+            [
+                Address, Amount, Comment, Comment_to, Subtractfeefromamount, Replaceable, null, Estimate_mode, Avoid_reuse, Fee_rate
+            ]
+            : 
+            [
                 Address, Amount, Comment, Comment_to, Subtractfeefromamount, Replaceable, Conf_target, Estimate_mode, Avoid_reuse
-            };
+            ];
 
-            return retval.ToList();
+            
+            var xx = retval.ToList()!;
+            return xx;
         }
     }
 }

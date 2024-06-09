@@ -229,13 +229,14 @@ public class WalletController : BaseController
         string name, string address, decimal amount,
         string comment, string comment_to,
         bool subtractfeefromamount, bool replaceable,
-        int conf_target, string estimate_mode, bool avoid_reuse)
+        int conf_target, string estimate_mode, bool avoid_reuse, decimal txFee)
     {
+
         var response = await _rpcClient.SendToAddress(new SendToAddressRequest(
             rpc_id, name,
             address, amount,
             comment, comment_to,
-            subtractfeefromamount, replaceable, conf_target, estimate_mode, avoid_reuse));
+            subtractfeefromamount, replaceable, conf_target, estimate_mode, avoid_reuse,txFee));
 
         if (response.HasError)
         {

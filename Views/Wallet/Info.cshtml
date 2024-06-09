@@ -69,10 +69,14 @@
                         <label for="txtCommentTo" class="form-label">@Localizer["ReceiverName"]</label>
                         <input id="txtCommentTo" class="form-control" placeholder='@Localizer["EnterReceiverName"]' />
                     </div>
-                   
+
                     <div class="mb-1">
                         <label for="txtConf_target" class="form-label">@Localizer["ConfirmationToTarget"]</label>
                         <input id="txtConf_target" class="form-control" placeholder='@Localizer["EnterConfirmationToTargetCount"]' type="number" min="1" value="6" step="1" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="txFee" class="form-label">TxFee Rate satoshi/vB (when != 0 overrides conf target )</label>
+                        <input id="txFee" class="form-control" placeholder='@Localizer["EnterConfirmationToTargetCount"]' type="number" min="0" value="0.00001" step="0.000000001"  />
                     </div>
                     <div class="mb-1">
                         <label for="ddEstimate_mode" class="form-label">@Localizer["Estimate_mode"]</label>
@@ -175,7 +179,7 @@
 }
 
 @section scripts {
-<script>
+    <script>
     function Unlock() {
         var passphrase = $("#passphrase").val();
         var name = "@Model?.WalletInfo?.Walletname";
@@ -202,6 +206,8 @@
         var comment_to = $("#txtCommentTo").val();
         var conf_target = $("#txtConf_target").val();
         var estimate_mode = $("#ddEstimate_mode").val();
+        var tx_fee = $("#txFee").val();
+        console.log(tx_fee)
         var subtractfeefromamount = $("#chkSubtractfeefromamount").prop("checked");
         var replaceable = $("#chkReplaceable").prop("checked");
         var avoidReuse = $("#chkAvoidReuse").prop("checked");
@@ -219,7 +225,8 @@
             estimate_mode: estimate_mode,
             subtractfeefromamount: subtractfeefromamount,
             replaceable: replaceable,
-            avoidReuse: avoidReuse
+            avoidReuse: avoidReuse,
+            txFee: tx_fee ?? 0
         };
 
         $.post(url, model, "json")
