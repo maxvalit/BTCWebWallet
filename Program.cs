@@ -42,19 +42,7 @@ var rpcallowip = configuration.GetSection("RPC").GetSection("rpcallowip").Value;
 builder.Services.AddSingleton<IRPCClient>(
     x => ActivatorUtilities.CreateInstance<RPCClient>(x, rpcbind, rpcport, rpcuser, rpcpassword));
 
-//BITCOIN NODE
-var bitcoinExePath = configuration.GetSection("BitcoinSettings").GetSection("executablePath").Value;
-var bitcoinCfgPath = configuration.GetSection("BitcoinSettings").GetSection("configPath").Value;
-bitcoinCfgPath = $"{builder.Environment.ContentRootPath}{bitcoinCfgPath}";
-
-var bitcoinWltPath = configuration.GetSection("BitcoinSettings").GetSection("walletPath").Value;
-bitcoinWltPath = $"{builder.Environment.ContentRootPath}{bitcoinWltPath}";
-
-var bitcoinDataPath = configuration.GetSection("BitcoinSettings").GetSection("dataPath").Value;
-bitcoinDataPath = $"{builder.Environment.ContentRootPath}{bitcoinDataPath}";
-
-Directory.CreateDirectory(bitcoinWltPath);
-Directory.CreateDirectory(bitcoinDataPath);
+Console.WriteLine($"Configured RPC TO http://{rpcuser}:<pwd {rpcpassword.Length}len>@{rpcbind}:{rpcport}");
 
 builder.Services.AddSingleton<IBitcoinNode>(
     x => ActivatorUtilities.CreateInstance<RemoteBitcoinNode>(x));
