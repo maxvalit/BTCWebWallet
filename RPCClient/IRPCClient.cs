@@ -19,4 +19,5 @@ public interface IRPCClient
     Task<DumpPrivKeyResponse> DumpPrivKey(DumpPrivKeyRequest request);
     Task<ImportPrivKeyResponse> ImportPrivKey(ImportPrivKeyRequest request);
     Task<DumpWalletResponse> DumpWallet(DumpWalletRequest request);
+    Task<LoadWalletResponse> LoadWallet(LoadWalletRequest request);
 }

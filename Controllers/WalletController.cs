@@ -36,7 +36,17 @@ public class WalletController : BaseController
             IsSuccess = true
         };
         var walletDirListResponse = await _rpcClient.GetListWalletsDir(new ListWalletDirRequest(rpc_id));
+        if(walletDirListResponse.HasError)
+        {
+            _logger.LogError($"RPC Error {walletDirListResponse.Error}");
+            AddPageError(RPCErrorToErrorViewModel(walletDirListResponse.Error));
+        }
 
+        if (walletDirListResponse.Result!.Wallets.Count != 0)
+        {
+            var loadResp = await _rpcClient.LoadWallet(new LoadWalletRequest(rpc_id,walletDirListResponse.Result!.Wallets.First().Name));
+        }
+        
         var walletListResponse = await _rpcClient.GetListWallets(new ListWalletsRequest(rpc_id));
         if (!walletListResponse.HasError)
         {

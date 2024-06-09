@@ -204,4 +204,11 @@ public class RPCClient : IRPCClient
         var castedResponse = response as DumpWalletResponse;
         return castedResponse;
     }
+
+    public async Task<LoadWalletResponse> LoadWallet(LoadWalletRequest request)
+    {
+        var response = await GetResponse<LoadWalletResponse>(request);
+        var castedResponse = response as LoadWalletResponse;
+        return castedResponse;
+    }
 }
