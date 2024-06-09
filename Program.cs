@@ -57,16 +57,7 @@ Directory.CreateDirectory(bitcoinWltPath);
 Directory.CreateDirectory(bitcoinDataPath);
 
 builder.Services.AddSingleton<IBitcoinNode>(
-    x => ActivatorUtilities.CreateInstance<BitcoinNode>(x, 
-        bitcoinExePath, 
-        bitcoinCfgPath, 
-        bitcoinWltPath, 
-        bitcoinDataPath,
-        rpcbind,
-        rpcport,
-        rpcuser,
-        rpcpassword,
-        rpcallowip));
+    x => ActivatorUtilities.CreateInstance<RemoteBitcoinNode>(x));
 
 
 // RESOURCES
@@ -99,7 +90,6 @@ var app = builder.Build();
 var supportedCultures = new[]
 {
     new CultureInfo("en-US"),
-    new CultureInfo("tr-TR"),
 };
 
 app.UseRequestLocalization(new RequestLocalizationOptions
@@ -120,10 +110,10 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  //  app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 // app.UseStaticFiles();
 
 var provider = new FileExtensionContentTypeProvider();

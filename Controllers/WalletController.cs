@@ -35,6 +35,7 @@ public class WalletController : BaseController
         {
             IsSuccess = true
         };
+        var walletDirListResponse = await _rpcClient.GetListWalletsDir(new ListWalletDirRequest(rpc_id));
 
         var walletListResponse = await _rpcClient.GetListWallets(new ListWalletsRequest(rpc_id));
         if (!walletListResponse.HasError)

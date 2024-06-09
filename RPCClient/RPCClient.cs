@@ -100,6 +100,13 @@ public class RPCClient : IRPCClient
         return castedResponse;
     }
 
+    public async Task<ListWalletDirResponse> GetListWalletsDir(ListWalletDirRequest request)
+    {
+        var response = await GetResponse<ListWalletDirResponse>(request);
+        var castedResponse = response as ListWalletDirResponse;
+        return castedResponse;
+    }
+
     public async Task<CreateWalletResponse> GetCreateWallet(CreateWalletRequest request)
     {
         var response = await GetResponse<CreateWalletResponse>(request);
