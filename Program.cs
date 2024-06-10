@@ -34,11 +34,10 @@ builder.Services.AddControllersWithViews();
 builder.Logging.AddSimpleConsole();
 
 //RPC CLIENT
-var rpcbind = configuration.GetSection("RPC").GetSection("rpcbind").Value;
-var rpcport = configuration.GetSection("RPC").GetSection("rpcport").Value;
-var rpcuser = configuration.GetSection("RPC").GetSection("rpcuser").Value;
-var rpcpassword = configuration.GetSection("RPC").GetSection("rpcpassword").Value;
-var rpcallowip = configuration.GetSection("RPC").GetSection("rpcallowip").Value;
+var rpcbind = configuration.GetSection("RPC").GetSection("host").Value;
+var rpcport = configuration.GetSection("RPC").GetSection("port").Value;
+var rpcuser = configuration.GetSection("RPC").GetSection("user").Value;
+var rpcpassword = configuration.GetSection("RPC").GetSection("pwd").Value;
 builder.Services.AddSingleton<IRPCClient>(
     x => ActivatorUtilities.CreateInstance<RPCClient>(x, rpcbind, rpcport, rpcuser, rpcpassword));
 

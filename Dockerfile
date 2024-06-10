@@ -12,10 +12,10 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
-ENV BTCRPC_HOST="127.0.0.1"
-ENV BTCRPC_PORT=1433
-ENV BTCRPC_USER=test
-ENV BTCRPC_PWD=pwd
+ENV RPC__HOST="127.0.0.1"
+ENV RPC__PORT=1433
+ENV RPC__USER=test
+ENV RPC__PWD=pwd
 
 WORKDIR /App
 COPY --from=build-env /BTCWebWallet/out .
