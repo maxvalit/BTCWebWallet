@@ -19,4 +19,4 @@ ENV BTCRPC_PWD=pwd
 
 WORKDIR /App
 COPY --from=build-env /BTCWebWallet .
-ENTRYPOINT ["dotnet", "BTCWebWallet.dll"]
+ENTRYPOINT ["dotnet", "out/BTCWebWallet.dll"]
